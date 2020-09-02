@@ -1,0 +1,19 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t baxhen/react-test -f ./client/Dockerfile.dev ./client
+script:
+  - docker run baxhen/react-test npm test
+after_success:
+  - docker build -t baxhen/dre-aws-multi-client ./client
+  - docker build -t baxhen/dre-aws-multi-nginx ./nginx
+  - docker build -t baxhen/dre-aws-multi-server ./server
+  - docker build -t baxhen/dre-aws-multi-worker ./worker
+  # Login in Docker Hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push Images to Docker Hub
+  - docker push baxhen/dre-aws-multi-client
+  - docker push baxhen/dre-aws-multi-nginx
+  - docker push baxhen/dre-aws-multi-server
+  - docker push baxhen/dre-aws-multi-worker
