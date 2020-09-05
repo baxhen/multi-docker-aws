@@ -21,7 +21,7 @@ deploy:
   provider: elasticbeanstalk
   region: us-east-2
   app: muilti-docker
-  env: MuiltDocker-env
+  env: MuiltiDocker-env
   bucket_name: elasticbeanstalk-us-east-2-209985839152
   bucket_path: docker-multi
   on:
