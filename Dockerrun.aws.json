@@ -1,0 +1,36 @@
+{
+  "AWSEBDDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "baxhen/dre-aws-multi-client",
+      "hostname": "client",
+      "essencial": false
+    },
+    {
+      "name": "server",
+      "image": "baxhen/dre-aws-multi-server",
+      "hostname": "api",
+      "essencial": false
+    },
+    {
+      "name": "worker",
+      "image": "baxhen/dre-aws-multi-worker",
+      "hostname": "worker",
+      "essencial": false
+    },
+    {
+      "name": "nginx-proxy",
+      "image": "baxhen/dre-aws-multi-nginx",
+      "hostname": "ngnix-proxy",
+      "essencial": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}

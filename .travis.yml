@@ -17,3 +17,14 @@ after_success:
   - docker push baxhen/dre-aws-multi-nginx
   - docker push baxhen/dre-aws-multi-server
   - docker push baxhen/dre-aws-multi-worker
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: muilti-docker
+  env: MuiltDocker-env
+  bucket_name: elasticbeanstalk-us-east-2-209985839152
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
